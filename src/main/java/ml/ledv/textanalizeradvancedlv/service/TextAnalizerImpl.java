@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  *
  * **/
 
-@Service
+@Service("textAnalizer")
 public class TextAnalizerImpl implements TextAnalyzer {
 
     @Autowired

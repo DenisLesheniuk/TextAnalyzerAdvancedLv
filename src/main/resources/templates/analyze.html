@@ -12,6 +12,40 @@
     <h2 th:text="${message}"/>
 </div>
 
+<table>
+    <tr>
+        <td>
+            <form action="/analyzing" method="get">
+                <input type="submit" value="Full Analyze"/>
+            </form>
+        </td>
+        <td>
+            <form action="/analyzing/top10" method="get">
+                <input type="submit" value="Top 10"/>
+            </form>
+        </td>
+        <td>
+            <form action="/analyzing/bracketCheck " method="get">
+                <input type="submit" value="Bracket check"/>
+            </form>
+        </td>
+    </tr>
+
+</table>
+
+
+
+
+<div  th:if="${result}">
+    <h2>The top 10 most common words</h2>
+    <p th:each="result : ${result}"
+       th:text="${result}"></p>
+</div>
+
+<div th:if="${bracketResult}">
+    <h2>Check Brackets</h2>
+    <div th:text="${bracketResult}"/>
+</div>
 
 
 </body>
