@@ -3,11 +3,9 @@ package ml.ledv.textanalizeradvancedlv.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,28 +16,40 @@ public class FileUploadController {
     private static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
-        public @ResponseBody String provideUploadInfo(){
-            return "Вы можете загружать файл с использованием того же URL.";
+        public String provideUploadInfo(){
+            return "upload";
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public @ResponseBody String handleFileUpload(@RequestParam("file")MultipartFile file){
-            if(!file.isEmpty()){
+    public String handleFileUpload(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes){
+            if(file.isEmpty()){
+                redirectAttributes.addFlashAttribute("message", "File is empty. Please select a file to upload");
+                return "redirect:upload";
+            }
+        if(!file.getOriginalFilename().endsWith(".txt")){
+            redirectAttributes.addFlashAttribute("message", "Incorrect file format. Please select a file to upload");
+            return "redirect:upload";
+        }
                 try{
-                    if(!file.getOriginalFilename().endsWith(".txt"))return "Вам не удалось загрузить потому что данный формат файла не поддерживается";
+
                     logger.info(file.getOriginalFilename());
                     byte[] bytes = file.getBytes();
                     BufferedOutputStream stream =
                             new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/uploaded/uploaded.txt")));
                     stream.write(bytes);
                     stream.close();
-                    return "Загружен файл: " + file.getOriginalFilename();
+                   redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename());
                 }catch (Exception e){
-                    return "Вам не удалось загрузить => " + e.getMessage();
+                    e.getMessage();
                 }
-            }else{
-                return "Вам не удалось загрузить потому что файл пустой.";
-            }
+
+                return "redirect:/analyze";
+
+    }
+
+    @GetMapping("/analyze")
+    public String uploadStatus(){
+        return "analyze";
     }
 
 }
