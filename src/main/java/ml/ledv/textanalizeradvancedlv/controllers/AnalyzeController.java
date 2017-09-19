@@ -15,14 +15,14 @@ import java.util.Map;
 public class AnalyzeController {
 
     @Autowired
-    FileHandler fileHandlerImpForResouces;
+    FileHandler fileHandlerImpl;
     @Autowired
     TextAnalyzer textAnalizer;
 
     @GetMapping("/analyzing")
     public String analyzing(RedirectAttributes redirectAttributes){
-        String text = fileHandlerImpForResouces.textExtractor("uploaded/uploaded.txt");
-
+        String text = "";
+        text = fileHandlerImpl.textExtractor("uploaded.txt");
         List<Map.Entry<String, Integer>> sortedReiting = textAnalizer.topTenRepeatingWords(text);
         int count = 0;
         List <String> result = new ArrayList<>();
@@ -33,9 +33,7 @@ public class AnalyzeController {
         }
 
         redirectAttributes.addFlashAttribute("result", result);
-
         String bracketResult = textAnalizer.bracketChecker(text);
-
         redirectAttributes.addFlashAttribute("bracketResult", bracketResult);
 
         return "redirect:analyze";
@@ -43,8 +41,7 @@ public class AnalyzeController {
 
     @GetMapping("/analyzing/top10")
     public String top10(RedirectAttributes redirectAttributes){
-        String text = fileHandlerImpForResouces.textExtractor("uploaded/uploaded.txt");
-
+        String text = fileHandlerImpl.textExtractor("uploaded.txt");
         List<Map.Entry<String, Integer>> sortedReiting = textAnalizer.topTenRepeatingWords(text);
         int count = 0;
         List <String> result = new ArrayList<>();
@@ -60,11 +57,9 @@ public class AnalyzeController {
 
     @GetMapping("/analyzing/bracketCheck")
     public String bracketCheck(RedirectAttributes redirectAttributes){
-        String text = fileHandlerImpForResouces.textExtractor("uploaded/uploaded.txt");
+        String text = fileHandlerImpl.textExtractor("uploaded.txt");
         String bracketResult = textAnalizer.bracketChecker(text);
-
         redirectAttributes.addFlashAttribute("bracketResult", bracketResult);
-
         return "redirect:/analyze";
     }
 }

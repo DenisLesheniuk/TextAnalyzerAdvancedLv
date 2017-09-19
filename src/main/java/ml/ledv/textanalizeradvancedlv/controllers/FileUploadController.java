@@ -22,6 +22,9 @@ public class FileUploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes){
+            File upfile = new File("uploaded.txt");
+            if(upfile.exists())
+                upfile.delete();
             if(file.isEmpty()){
                 redirectAttributes.addFlashAttribute("message", "File is empty. Please select a file to upload");
                 return "redirect:upload";
@@ -30,22 +33,23 @@ public class FileUploadController {
             redirectAttributes.addFlashAttribute("message", "Incorrect file format. Please select a file to upload");
             return "redirect:upload";
         }
-                try{
 
-                    logger.info(file.getOriginalFilename());
-                    byte[] bytes = file.getBytes();
-                    BufferedOutputStream stream =
-                            new BufferedOutputStream(new FileOutputStream(new File("src/main/resources/uploaded/uploaded.txt")));
-                    stream.write(bytes);
-                    stream.close();
-                   redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename());
-                }catch (Exception e){
-                    e.getMessage();
-                }
+            try {
 
-                return "redirect:/analyze";
+                logger.info(file.getOriginalFilename());
+                byte[] bytes = file.getBytes();
+                BufferedOutputStream stream =
+                        new BufferedOutputStream(new FileOutputStream(upfile));
+                stream.write(bytes);
+                stream.close();
+                redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename());
+            } catch (Exception e) {
+                e.getMessage();
+            }
 
-    }
+            return "redirect:/analyze";
+        }
+
 
     @GetMapping("/analyze")
     public String uploadStatus(){

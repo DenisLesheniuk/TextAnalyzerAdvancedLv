@@ -28,8 +28,10 @@ public class FileHandlerImplForResources implements FileHandler {
     public String textExtractor(String filePath) {
         String text = "";
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/" + filePath), "UTF-8"))) {
-                while (bufferedReader.ready())
+                while (bufferedReader.ready()) {
                     text += bufferedReader.readLine() + "\n";
+                }
+
             } catch (IOException exc) {
                 exc.printStackTrace();
             }
