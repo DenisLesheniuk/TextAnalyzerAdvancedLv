@@ -120,7 +120,7 @@ public class TextAnalizerImpl implements TextAnalyzer {
             stopWordsWithoutDuplicates.add(stopWord);
         }
 
-        
+
         String resultText = text;
         for(String stopWord: stopWordsWithoutDuplicates){
             resultText = Pattern.compile("\\b(" + stopWord + ")\\b", Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE).matcher(resultText).replaceAll("");
