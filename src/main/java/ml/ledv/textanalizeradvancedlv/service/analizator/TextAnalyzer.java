@@ -1,4 +1,4 @@
-package ml.ledv.textanalizeradvancedlv.service;
+package ml.ledv.textanalizeradvancedlv.service.analizator;
 
 import java.util.List;
 import java.util.Map;

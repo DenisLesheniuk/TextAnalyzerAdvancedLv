@@ -1,5 +1,6 @@
-package ml.ledv.textanalizeradvancedlv.service;
+package ml.ledv.textanalizeradvancedlv.service.analizator;
 
+import ml.ledv.textanalizeradvancedlv.service.analizator.FileHandler;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -16,7 +17,6 @@ import java.io.*;
 @Service("fileHandlerImpForResouces")
 public class FileHandlerImplForResources implements FileHandler {
 
-    private boolean fileOk = false;
     /**
      * Extracts text from a file.
      * @param filePath is a relative path.
@@ -37,15 +37,6 @@ public class FileHandlerImplForResources implements FileHandler {
         return textBuilder.toString();
     }
 
-    /**
-     * File validation
-     * @param filePath is a relative path.
-     * @return true if the file is validated, else @return false
-
-     */
-    public boolean fileValidation(String filePath){
-        return fileOk;
-    }
 
     /**
      * Extracts text from a file.

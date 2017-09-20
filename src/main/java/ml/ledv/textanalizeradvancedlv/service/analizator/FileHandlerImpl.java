@@ -1,12 +1,13 @@
-package ml.ledv.textanalizeradvancedlv.service;
+package ml.ledv.textanalizeradvancedlv.service.analizator;
 
+import ml.ledv.textanalizeradvancedlv.service.analizator.FileHandler;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 
 /**
  * Implementation of {@link FileHandler} interface.
- * This class provides methods for file processing and file validation.
+ * This class provides methods for file processing.
  * @author Denis Lesheniuk
  * @version 1.1
  **/

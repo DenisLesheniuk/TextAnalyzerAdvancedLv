@@ -1,4 +1,4 @@
-package ml.ledv.textanalizeradvancedlv.service;
+package ml.ledv.textanalizeradvancedlv.service.analizator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

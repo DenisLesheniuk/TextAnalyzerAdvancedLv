@@ -2,6 +2,8 @@ package ml.ledv.textanalizeradvancedlv.service;
 
 import ml.ledv.textanalizeradvancedlv.model.Analyze;
 import ml.ledv.textanalizeradvancedlv.model.Text;
+import ml.ledv.textanalizeradvancedlv.service.analizator.FileHandler;
+import ml.ledv.textanalizeradvancedlv.service.analizator.TextAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
-@Service
+/**
+ * Service for work with Text and Analyze  components
+ *
+ * **/
+@Service("textService")
 public class TextSetviceImpl implements TextService {
 
     @Autowired
-    private TextAnalyzer textAnalyzer;
+    private TextAnalyzer textAnalyzer; // service for analizing text.
     @Autowired
-    private FileHandler fileHandlerImpl;
+    private FileHandler fileHandlerImpl;// service for file handing.
 
     @Autowired
     private Text text;

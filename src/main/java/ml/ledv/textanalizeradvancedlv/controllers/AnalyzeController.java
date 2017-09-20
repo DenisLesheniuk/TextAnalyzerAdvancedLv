@@ -1,7 +1,7 @@
 package ml.ledv.textanalizeradvancedlv.controllers;
 
-import ml.ledv.textanalizeradvancedlv.service.FileHandler;
-import ml.ledv.textanalizeradvancedlv.service.TextAnalyzer;
+import ml.ledv.textanalizeradvancedlv.service.analizator.FileHandler;
+import ml.ledv.textanalizeradvancedlv.service.analizator.TextAnalyzer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

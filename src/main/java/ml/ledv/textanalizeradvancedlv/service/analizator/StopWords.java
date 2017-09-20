@@ -1,5 +1,6 @@
-package ml.ledv.textanalizeradvancedlv.service;
+package ml.ledv.textanalizeradvancedlv.service.analizator;
 
+import ml.ledv.textanalizeradvancedlv.service.analizator.FileHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
