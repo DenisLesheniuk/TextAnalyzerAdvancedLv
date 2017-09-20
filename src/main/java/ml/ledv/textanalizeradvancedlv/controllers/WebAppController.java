@@ -91,10 +91,10 @@ public class WebAppController {
     }
 
     /**
-     * The method intercepts the GET /analyze request, and does fool text analyze.
+     * The method intercepts the GET /analyzing request, and does fool text analyze.
      * @return the analyze view with the raiting, words and bracketResult attributes.
      */
-    @GetMapping("/analyze")
+    @GetMapping("/analyzing")
     public String analyzing(RedirectAttributes redirectAttributes){
         Analyze analyze = textService.fullTextAnalyze();
         List<String> words = new ArrayList<>();
@@ -110,10 +110,10 @@ public class WebAppController {
     }
 
     /**
-     * The method intercepts the GET /analyze/top10 request, and does top10 text analyze.
+     * The method intercepts the GET /analyzing/top10 request, and does top10 text analyze.
      * @return the analyze view with the raiting, words attributes.
      */
-    @GetMapping("/analyze/top10")
+    @GetMapping("/analyzing/top10")
     public String top10(RedirectAttributes redirectAttributes){
         Analyze analyze = textService.top10TextAnalyze();
         List<String> words = new ArrayList<>();
@@ -128,10 +128,10 @@ public class WebAppController {
         return "redirect:/analyze";
     }
     /**
-     * The method intercepts the GET /analyze/bracketCheck request, and does bracketCheck text analyze.
+     * The method intercepts the GET /analyzing/bracketCheck request, and does bracketCheck text analyze.
      * @return the analyze view with the bracketResult attribute.
      */
-    @GetMapping("/analyze/bracketCheck")
+    @GetMapping("/analyzing/bracketCheck")
     public String bracketCheck(RedirectAttributes redirectAttributes){
         Analyze analyze = textService.bracketCheckTextAnalyze();
         redirectAttributes.addFlashAttribute("bracketResult", analyze.getBracketCheck());
