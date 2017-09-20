@@ -17,7 +17,6 @@ public class FileHandlerImpl implements FileHandler {
 
     /**
      * Extracts text from a file.
-     *
      * @param filePath is an absolute path
      * @return text in String format
      */
@@ -37,11 +36,9 @@ public class FileHandlerImpl implements FileHandler {
 
     /**
      * Extracts text from a file.
-     *
      * @param file is a File object
      * @return text in String format
      */
-
     public String textExtractor(File file) {
         StringBuilder textBuilder = new StringBuilder();
 

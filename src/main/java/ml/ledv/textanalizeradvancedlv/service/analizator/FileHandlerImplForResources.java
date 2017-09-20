@@ -21,7 +21,6 @@ public class FileHandlerImplForResources implements FileHandler {
      * Extracts text from a file.
      * @param filePath is a relative path.
      * @return text in String format
-
      */
     public String textExtractor(String filePath) {
 
@@ -40,11 +39,9 @@ public class FileHandlerImplForResources implements FileHandler {
 
     /**
      * Extracts text from a file.
-     *
      * @param file is a File object
      * @return text in String format
      */
-
     public String textExtractor(File file) {
         StringBuilder textBuilder = new StringBuilder();
 

@@ -5,6 +5,11 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
+/* Analyze model
+ *
+ * @author Denis Lesheniuk
+ * @version 1.0      *
+ * **/
 @Component
 public class Analyze {
     private List<Map.Entry<String, Integer>> top10;

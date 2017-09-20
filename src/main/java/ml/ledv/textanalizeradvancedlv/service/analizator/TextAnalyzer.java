@@ -5,7 +5,6 @@ import java.util.Map;
 
 /**
  * Text parser
- *
  * @author Denis Lesheniuk
  * @version 1.0*/
 

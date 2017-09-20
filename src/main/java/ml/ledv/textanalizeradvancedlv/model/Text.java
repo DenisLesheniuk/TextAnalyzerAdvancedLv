@@ -7,6 +7,11 @@ import org.springframework.stereotype.Controller;
 
 import java.io.File;
 
+/* Text model
+ *
+ * @author Denis Lesheniuk
+ * @version 1.0      *
+ * **/
 @Component
 public class Text {
     private File file;

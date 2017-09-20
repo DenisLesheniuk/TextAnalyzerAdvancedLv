@@ -25,7 +25,6 @@ public class TextAnalizerImpl implements TextAnalyzer {
 /**
  * The method counts duplicate words in the text,
  * and return the result in the form of a word usage rating.
- *
  * @param text is an incoming text for analyzing.
  * @return sorted rating List.
  * **/
@@ -53,8 +52,7 @@ public class TextAnalizerImpl implements TextAnalyzer {
  * The method used stack to check matching brackets
  * @param  text is an incoming text
  * @return result = correct/incorrect
- *
- * **/
+ **/
     @Override
     public String bracketChecker(String text) {
         String result = "";
@@ -107,7 +105,7 @@ public class TextAnalizerImpl implements TextAnalyzer {
      * It depends on {@link StopWords} class, with the help of which, it receives the specified words in the string format.
      *@param text incoming text.
      *@return resultText processed text.
-     * **/
+     **/
     private String excludeSpecifiedWords(String text){
 
 

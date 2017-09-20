@@ -20,6 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Web app controller.
+ * This class provides navigation methods for simple Web UI.
+ *
+ * @author denis Lesheniuk
+ * @version 1.0
+ * **/
 @Controller
 public class WebAppController {
 
@@ -27,11 +34,25 @@ public class WebAppController {
     @Autowired
     private TextService textService;
 
+    /**
+     * The method intercepts the GET request from the index.html page
+     * @return the textFile view
+     */
     @RequestMapping(value = "/textFile", method = RequestMethod.GET)
-    public String provideUploadInfo(){
+    public String index(){
         return "textFile";
     }
 
+    /**
+     * The method intercepts the POST request with
+     * @param file, and if the file is valid,
+     * create new file in the root project directory.
+     * If file not valid, method redirect to the textFile view
+     * with error messege in the attribute.
+     *
+     * @return redirect to the /analyze request with the the originalFileName in
+     * the attribute.
+     */
     @RequestMapping(value = "/textFile", method = RequestMethod.POST)
     public String handleFileUpload(@RequestParam("file")MultipartFile file, RedirectAttributes redirectAttributes){
         File upfile = new File("uploaded.txt");
@@ -60,13 +81,20 @@ public class WebAppController {
         return "redirect:/analyze";
     }
 
-
+    /**
+     * The method intercepts the GET /analyze request.
+     * @return the analyze view
+     */
     @GetMapping("/analyze")
     public String uploadStatus(){
         return "analyze";
     }
 
-    @GetMapping("/analyzing")
+    /**
+     * The method intercepts the GET /analyze request, and does fool text analyze.
+     * @return the analyze view with the raiting, words and bracketResult attributes.
+     */
+    @GetMapping("/analyze")
     public String analyzing(RedirectAttributes redirectAttributes){
         Analyze analyze = textService.fullTextAnalyze();
         List<String> words = new ArrayList<>();
@@ -81,7 +109,11 @@ public class WebAppController {
         return "redirect:analyze";
     }
 
-    @GetMapping("/analyzing/top10")
+    /**
+     * The method intercepts the GET /analyze/top10 request, and does top10 text analyze.
+     * @return the analyze view with the raiting, words attributes.
+     */
+    @GetMapping("/analyze/top10")
     public String top10(RedirectAttributes redirectAttributes){
         Analyze analyze = textService.top10TextAnalyze();
         List<String> words = new ArrayList<>();
@@ -95,8 +127,11 @@ public class WebAppController {
 
         return "redirect:/analyze";
     }
-
-    @GetMapping("/analyzing/bracketCheck")
+    /**
+     * The method intercepts the GET /analyze/bracketCheck request, and does bracketCheck text analyze.
+     * @return the analyze view with the bracketResult attribute.
+     */
+    @GetMapping("/analyze/bracketCheck")
     public String bracketCheck(RedirectAttributes redirectAttributes){
         Analyze analyze = textService.bracketCheckTextAnalyze();
         redirectAttributes.addFlashAttribute("bracketResult", analyze.getBracketCheck());
