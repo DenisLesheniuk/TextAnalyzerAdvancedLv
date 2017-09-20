@@ -32,7 +32,6 @@ public class TextSetviceImpl implements TextService {
         text.setFile(file);
     }
 
-    @Override
     public boolean isFileExist(File file) {
         return file.exists();
     }
@@ -46,7 +45,7 @@ public class TextSetviceImpl implements TextService {
         return text;
     }
 
-    public Analyze fullTextAnalize(){
+    public Analyze fullTextAnalyze(){
         String txt = "";
         txt = fileHandlerImpl.textExtractor(text.getFile());
         List<Map.Entry<String, Integer>> sortedReiting = textAnalyzer.topTenRepeatingWords(txt);
@@ -66,6 +65,31 @@ public class TextSetviceImpl implements TextService {
         return analyze;
     }
 
+    public Analyze top10TextAnalyze() {
+        String txt = "";
+        txt = fileHandlerImpl.textExtractor(text.getFile());
+        List<Map.Entry<String, Integer>> sortedReiting = textAnalyzer.topTenRepeatingWords(txt);
+        List<Map.Entry<String, Integer>> top10 = new ArrayList<>();
+        int count = 0;
+        List <String> result = new ArrayList<>();
+        for(Map.Entry<String, Integer> word: sortedReiting){
+            if(count == 10 && !word.getValue().equals(""))break;
+            top10.add(word);
+            count++;
+        }
+        analyze.setTop10(top10);
+        analyze.setBracketCheck(null);
+        return analyze;
+    }
 
+    @Override
+    public Analyze bracketCheckTextAnalyze() {
+        String txt = "";
+        txt = fileHandlerImpl.textExtractor(text.getFile());
 
+        String bracketResult = textAnalyzer.bracketChecker(txt);
+        analyze.setTop10(null);
+        analyze.setBracketCheck(bracketResult);
+        return analyze;
+    }
 }

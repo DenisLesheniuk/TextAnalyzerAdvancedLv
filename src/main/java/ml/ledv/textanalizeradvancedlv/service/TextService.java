@@ -12,5 +12,7 @@ public interface TextService {
     public boolean isFileExist(File text);
     public void deleteFile();
     public Text getText();
-    public Analyze fullTextanalize();
+    public Analyze fullTextAnalyze();
+    public Analyze top10TextAnalyze();
+    public Analyze bracketCheckTextAnalyze();
 }

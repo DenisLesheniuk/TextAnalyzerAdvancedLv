@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -64,14 +65,40 @@ public class RESTApiController {
     }
 
     @RequestMapping(value = "textFile/analyze", method = RequestMethod.GET)
-        public ResponseEntity<Analyze> analyze(){
+        public ResponseEntity<?> analyze(){
          File upfile = new File("uploaded.txt");
             if(!upfile.exists()){
             logger.error("File is empty");
             return new ResponseEntity(new CustomErrorType("The file is not exist, please add the file."), HttpStatus.CONFLICT);
         }
             logger.info("analyzing");
-           Analyze analyze = textService.fullTextanalize();
+           Analyze analyze = textService.fullTextAnalyze();
         return new ResponseEntity<Analyze>(analyze, HttpStatus.OK);
     }
-}
+
+    @RequestMapping(value = "textFile/analyze/top10")
+        public ResponseEntity<?> top10text(){
+        File upfile = new File("uploaded.txt");
+        if(!upfile.exists()){
+            logger.error("File is empty");
+            return new ResponseEntity(new CustomErrorType("The file is not exist, please add the file."), HttpStatus.CONFLICT);
+        }
+        logger.info("Top 10 Text Analyze");
+        Analyze analyze = textService.top10TextAnalyze();
+        return new ResponseEntity<List>(analyze.getTop10(), HttpStatus.OK);
+        }
+
+    @RequestMapping(value = "textFile/analyze/bracketCheck")
+    public ResponseEntity<?> bracketCheck(){
+        File upfile = new File("uploaded.txt");
+        if(!upfile.exists()){
+            logger.error("File is empty");
+            return new ResponseEntity(new CustomErrorType("The file is not exist, please add the file."), HttpStatus.CONFLICT);
+        }
+        logger.info("Top 10 Text Analyze");
+        Analyze analyze = textService.bracketCheckTextAnalyze();
+        return new ResponseEntity<String>(analyze.getBracketCheck(), HttpStatus.OK);
+    }
+    }
+
+
