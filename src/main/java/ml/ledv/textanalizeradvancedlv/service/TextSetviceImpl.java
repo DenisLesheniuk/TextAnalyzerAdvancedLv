@@ -13,7 +13,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Implementation of {@link TextService} interface.
  * Service for work with Text and Analyze  components
+ *
+ * @author Denis Lesheniuk
+ * @version 1.0
  *
  * **/
 @Service("textService")
@@ -23,33 +27,42 @@ public class TextSetviceImpl implements TextService {
     private TextAnalyzer textAnalyzer; // service for analizing text.
     @Autowired
     private FileHandler fileHandlerImpl;// service for file handing.
-
     @Autowired
     private Text text;
     @Autowired
     private Analyze analyze;
 
+    //Method return field file from Text object
     public File getFile() {
         return text.getFile();
     }
 
+    //Method set field file from Text object
     public void setFile(File file) {
         text.setFile(file);
     }
 
+    //Method return true if field file in the Text object exist
     public boolean isFileExist(File file) {
         return file.exists();
     }
 
+    //Method to delete file
     public void deleteFile(){
         if(text.getFile().exists())
             text.getFile().delete();
-    }
 
+    }
+    //Method return Text object
     public Text getText(){
         return text;
     }
 
+    /**
+     * Method does text analysis to get full analizing(top10 & bracketCheck)
+     * @return Analyze object with a result in field top10 = result &
+     *                                         field bracketChek = corrent/Incorrect.
+     */
     public Analyze fullTextAnalyze(){
         String txt = "";
         txt = fileHandlerImpl.textExtractor(text.getFile());
@@ -70,6 +83,12 @@ public class TextSetviceImpl implements TextService {
         return analyze;
     }
 
+    /**
+     * Method does text analysis to get the 10 most frequently used words in the text.
+     * Conjunctions, prepositions and pronouns are excluded from the statistics.
+     * @return Analyze object with a result in field top10 = result
+     *                                         field bracketChek = null.
+     */
     public Analyze top10TextAnalyze() {
         String txt = "";
         txt = fileHandlerImpl.textExtractor(text.getFile());
@@ -87,6 +106,12 @@ public class TextSetviceImpl implements TextService {
         return analyze;
     }
 
+    /**
+     * Method does text analysis to get the iformation about the correctness of the brackets in the text .
+
+     * @return Analyze object with a result in field bracketChek = currect/incorrect.
+     *                                         field top10 = null.
+     */
     @Override
     public Analyze bracketCheckTextAnalyze() {
         String txt = "";
