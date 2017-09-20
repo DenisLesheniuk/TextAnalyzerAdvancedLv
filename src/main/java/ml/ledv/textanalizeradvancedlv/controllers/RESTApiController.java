@@ -244,7 +244,7 @@ public class RESTApiController {
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
 
-    //Deleating file
+    //Deleting file
     @RequestMapping(value = "/textFile", method = RequestMethod.DELETE)
         public ResponseEntity<Text> deleteText(){
             File upfile = new File("uploaded.txt");
