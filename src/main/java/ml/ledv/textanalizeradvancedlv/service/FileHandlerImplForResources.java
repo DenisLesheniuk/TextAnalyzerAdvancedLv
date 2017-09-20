@@ -2,9 +2,7 @@ package ml.ledv.textanalizeradvancedlv.service;
 
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 
 /**
@@ -48,6 +46,28 @@ public class FileHandlerImplForResources implements FileHandler {
     public boolean fileValidation(String filePath){
         return fileOk;
     }
+
+    /**
+     * Extracts text from a file.
+     *
+     * @param file is a File object
+     * @return text in String format
+     */
+
+    public String textExtractor(File file) {
+        StringBuilder textBuilder = new StringBuilder();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            while (bufferedReader.ready()) {
+                textBuilder.append(bufferedReader.readLine()).append("\n");
+            }
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
+
+        return textBuilder.toString();
+    }
+
 
 
 }

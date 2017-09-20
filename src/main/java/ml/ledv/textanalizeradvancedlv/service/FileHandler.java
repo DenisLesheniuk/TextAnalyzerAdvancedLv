@@ -1,5 +1,7 @@
 package ml.ledv.textanalizeradvancedlv.service;
 
+import java.io.File;
+
 /**
  * Simple File Handler
  *
@@ -8,5 +10,6 @@ package ml.ledv.textanalizeradvancedlv.service;
  **/
 public interface FileHandler {
     public String textExtractor(String filePath);
-    public boolean fileValidation(String filePath);
+    public String textExtractor(File file);
+
 };

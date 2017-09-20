@@ -9,13 +9,7 @@ import java.io.File;
 
 @Component
 public class Text {
-
-
     private File file;
-
-
-
-
 
     public File getFile() {
         return this.file;

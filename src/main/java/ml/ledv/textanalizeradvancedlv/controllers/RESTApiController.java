@@ -1,5 +1,6 @@
 package ml.ledv.textanalizeradvancedlv.controllers;
 
+import ml.ledv.textanalizeradvancedlv.model.Analyze;
 import ml.ledv.textanalizeradvancedlv.model.Text;
 import ml.ledv.textanalizeradvancedlv.service.TextService;
 import ml.ledv.textanalizeradvancedlv.utils.CustomErrorType;
@@ -26,7 +27,7 @@ public class RESTApiController {
     @Autowired
     private TextService textService;
 
-    @RequestMapping(value = "/textAnalyze", method = RequestMethod.POST)
+    @RequestMapping(value = "/textFile", method = RequestMethod.POST)
     public ResponseEntity<?> handleFileUpload(@RequestParam("file")MultipartFile file){
         File upfile = new File("uploaded.txt");
         if(file.isEmpty()){
@@ -55,9 +56,22 @@ public class RESTApiController {
         return new ResponseEntity<Text>(textService.getText() , HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/textAnalyze", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/textFile", method = RequestMethod.DELETE)
         public ResponseEntity<Text> deleteText(){
+            logger.info("Deleting file");
             textService.deleteFile();
         return new ResponseEntity<Text>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "textFile/analyze", method = RequestMethod.GET)
+        public ResponseEntity<Analyze> analyze(){
+         File upfile = new File("uploaded.txt");
+            if(!upfile.exists()){
+            logger.error("File is empty");
+            return new ResponseEntity(new CustomErrorType("The file is not exist, please add the file."), HttpStatus.CONFLICT);
+        }
+            logger.info("analyzing");
+           Analyze analyze = textService.fullTextanalize();
+        return new ResponseEntity<Analyze>(analyze, HttpStatus.OK);
     }
 }

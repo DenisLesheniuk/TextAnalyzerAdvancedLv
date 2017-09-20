@@ -12,7 +12,7 @@ import java.io.*;
  **/
 @Service("fileHandlerImpl")
 public class FileHandlerImpl implements FileHandler {
-    private boolean fileOk = false;
+
 
     /**
      * Extracts text from a file.
@@ -22,7 +22,7 @@ public class FileHandlerImpl implements FileHandler {
      */
     public String textExtractor(String filePath) {
         StringBuilder textBuilder = new StringBuilder();
-        if (fileValidation(filePath)) {
+
             try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), "UTF-8"))) {
                 while (bufferedReader.ready()) {
                     textBuilder.append(bufferedReader.readLine()).append("\n");
@@ -30,38 +30,31 @@ public class FileHandlerImpl implements FileHandler {
             } catch (IOException exc) {
                 exc.printStackTrace();
             }
-        }
 
         return textBuilder.toString();
     }
 
     /**
-     * File validation
+     * Extracts text from a file.
      *
-     * @param filePath is an absolute path
-     * @return true if the file is validated, else @return false
+     * @param file is a File object
+     * @return text in String format
      */
-    public boolean fileValidation(String filePath) {
-        if (filePath.length() == 0) {
-            System.out.println("Упс... Вы забыли ввести путь к файлу...\n");
-            fileOk = false;
-            return fileOk;
-        }
-        if (!filePath.endsWith(".txt")) {
-            System.out.println("Неверный формат файла!!!\n");
-            fileOk = false;
-            return fileOk;
+
+    public String textExtractor(File file) {
+        StringBuilder textBuilder = new StringBuilder();
+
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            while (bufferedReader.ready()) {
+                textBuilder.append(bufferedReader.readLine()).append("\n");
+            }
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
 
-        File file = new File(filePath);
-        if (!file.exists()) {
-            System.out.println("Не могу найти данный файл, попробуйте снова!!!\n");
-            fileOk = false;
-            return fileOk;
-        }
-        fileOk = true;
-        return fileOk;
-
+        return textBuilder.toString();
     }
+
+
 
 }

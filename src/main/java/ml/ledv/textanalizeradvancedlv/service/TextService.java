@@ -1,5 +1,6 @@
 package ml.ledv.textanalizeradvancedlv.service;
 
+import ml.ledv.textanalizeradvancedlv.model.Analyze;
 import ml.ledv.textanalizeradvancedlv.model.Text;
 
 import java.io.File;
@@ -11,4 +12,5 @@ public interface TextService {
     public boolean isFileExist(File text);
     public void deleteFile();
     public Text getText();
+    public Analyze fullTextanalize();
 }
